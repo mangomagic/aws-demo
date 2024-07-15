@@ -26,7 +26,7 @@ module "autoscaling" {
   use_lt                 = true
   create_lt              = true
   update_default_version = true
-  user_data_base64       = base64encode(data.template_file.user_data.rendered)
+  user_data_base64       = base64encode(templatefile("${path.module}/files/user_data.sh.tftpl", { cloudwatch_config_base64 = filebase64("${path.module}/files/amazon-cloudwatch-agent.json") }))
 
   vpc_zone_identifier = module.vpc.private_subnets
   security_groups     = [module.security_group_ec2.this_security_group_id]

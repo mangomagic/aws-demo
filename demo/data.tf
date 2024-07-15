@@ -5,13 +5,6 @@
 #
 data "aws_availability_zones" "zones" {}
 
-data "template_file" "user_data" {
-  template = file("files/user_data.sh.tpl")
-  vars = {
-    cloudwatch_config_base64 = filebase64("files/amazon-cloudwatch-agent.json")
-  }
-}
-
 data "aws_ami" "ubuntu" {
   filter {
     name   = "name"
